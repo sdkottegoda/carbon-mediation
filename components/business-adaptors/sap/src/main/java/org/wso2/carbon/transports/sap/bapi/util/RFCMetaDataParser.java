@@ -364,6 +364,15 @@ public class RFCMetaDataParser {
                     log.warn("Invalid meta data type element found : " + structureName + " .This meta data " +
                              "type will be ignored");
                 }
+            } else if (qname != null && qname.equals("table")) {
+                String tableName = childElement.getAttributeValue(RFCConstants.NAME_Q);
+                JCoTable jCoTableInner = table.getTable(tableName);
+                if (jCoTableInner != null) {
+                    processTable(childElement, jCoTableInner);
+                } else {
+                    log.warn("Invalid meta data type element found : " + tableName + " .This meta data " +
+                             "type will be ignored");
+                }
             } else {
                 log.warn("Invalid meta data type element found : " + qname + " .This meta data " +
                         "type will be ignored");
