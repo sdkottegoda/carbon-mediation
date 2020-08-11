@@ -351,8 +351,10 @@ public class SAPTransportSender extends AbstractTransportSender {
         JCoStructure returnStructure = null;
         try {
             returnStructure = function.getExportParameterList().getStructure("RETURN");
-        } catch (Exception ignore) {
-
+        } catch (JCoRuntimeException e) {
+            if (!(e.getKey().equals("JCO_ERROR_FIELD_NOT_FOUND"))) {
+                throw e;
+            }
         }
         // there seems to be some error that we need to report: TODO ?
         //If property "sap.escape.error.handling" is defined and is true, the original SAP exceptions will
